@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>{{ page_name }}</title>
+    <link href="{% static 'images/logo_fondoazul.png' %}" rel="icon">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <!-- MDB -->
+    <link rel="stylesheet" href="{% static 'css/login/mdb.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/login/style.css' %}" />
+</head>
+<body>
+  <!--Main Navigation-->
+  <header>
+   
+    <style>
+      #intro {
+        background-image: url("{% static 'images/login_bg.jpg' %}");
+        height: 100vh;
+      }
+
+      /* Height for devices larger than 576px */
+      @media (min-width: 992px) {
+        #intro {
+          margin-top: -58.59px;
+        }
+      }
+
+      .navbar .nav-link {
+        color: #fff !important;
+      }
+    </style>
+
+   
+      
+    </nav>
+    <!-- Navbar -->
+
+    <!-- Background image -->
+    <div id="intro" class="bg-image shadow-2-strong">
+      {% include 'base/message_holder.html' %}
+      <div class="mask d-flex align-items-center h-100" style="background-color: rgba(0, 0, 0, 0.8);">
+        <div class="container">
+          
+          <div class="row justify-content-center">
+            
+            <div class="row bg-white rounded shadow-5-strong p-5 col-xl-5 col-md-8">
+              <div>
+                <img src="{% static 'images/logo_redondo_fondoazul.png' %}" alt="Logo" class="img-fluid" style="width: 100px; height: 100px; margin: 0 auto; display: block;">
+              <!-- <span>eeeo</span> -->
+              </div>
+              
+
+              <form method="POST" action="{% url 'login' %}" class="bg-white rounded shadow-5-strong p-5 needs-validation">
+                {% csrf_token %}
+                <!-- username input -->
+                <div class="col-12">
+                  <label class="form-label" for="usernameInput">Nombre de usuario</label>
+                  <div class="input-group has-validation form-outline mb-4" data-mdb-input-init>
+                    <input name="username" type="text" id="usernameInput" class="form-control" placeholder="Nombre de usuario" required>
+                    <div class="invalid-feedback">Por favor Ingresa tu Usuario.</div>
+                  </div>
+                </div>
+                
+
+                <!-- Password input -->
+                <div class="col-12">
+                  <label class="form-label" for="passwordInput">Contraseña</label>
+                  <div class="form-outline mb-4" data-mdb-input-init>
+                    <input type="password" name="password" id="passwordInput" class="form-control" placeholder="Contraseña de usuario" required />
+                    <div class="invalid-feedback">Por favor Ingresa tu Contraseña.</div>
+                  </div>
+                </div>
+                
+
+                <!-- 2 column grid layout for inline styling -->
+                <div class="row mb-4">
+                  <div class="col d-flex justify-content-center">
+                    <!-- Checkbox 
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
+                      <label class="form-check-label" for="form1Example3">
+                        Recordarme
+                      </label>
+                    </div>
+                    -->
+                  </div>
+                  
+                  
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Background image -->
+  </header>
+  <!--Main Navigation-->
+
+    <!-- MDB -->
+    <script type="text/javascript" src="{% static 'js/login/mdb.umd.min.js' %}"></script>
+</body>
+</html>

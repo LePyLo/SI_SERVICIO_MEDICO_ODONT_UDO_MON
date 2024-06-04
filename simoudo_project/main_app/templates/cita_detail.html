@@ -1,0 +1,80 @@
+{% extends "base/base_template.html" %}
+{% load static %}
+
+{% block content %}
+
+<style>
+
+.container {  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1.5fr 2fr 2.2fr;
+
+  grid-auto-flow: row;
+  grid-template-areas:
+    "Cabecera"
+    "diagnostico"
+    "recipe";
+}
+
+.Cabecera { grid-area: Cabecera; }
+
+.info { grid-area: info; }
+
+.diagnostico { grid-area: diagnostico; }
+
+.recipe { grid-area: recipe; }
+
+
+
+</style>
+
+<div class="container vstack mx-auto m-0 p-0">
+    <div class="Cabecera border border-info rounded p-2 bg-info bg-opacity-10">
+        <div class="text-center"><h1>{{cita.titulo}}</h1></div>
+        <div>
+            <h3>Paciente: {{cita.paciente.get_full_name}}</h3>
+            <h4>Doctor: {{cita.doctor.get_full_name}}</h4>
+            <h4>Asistente: {{cita.asistente.get_full_name}}</h4>
+            
+            <span>Fecha Emisión: {{cita.fecha_creacion.date}}</span>
+            <br>
+            <span>Fecha Propuesta: {{cita.fecha_propuesta.date}}</span>
+        </div>
+        <div><button style="border:none; margin:0; padding:0;" ><a style="padding-top: 0;padding-bottom: 0; margin: 0; font-size: 12px;" class="btn btn-info btn-sm"  href="{% url 'cita_modificar' cita.id_cita %}"><i class="bi bi-pen"></i> Editar esta cita medica</a></button></div>
+    </div>
+
+    <div class="diagnostico border border-warning rounded my-2 p-2 bg-warning bg-opacity-10">
+        <h2 class="text-center">DIAGNOSTICO</h2>
+        <p>{{cita.diagnostico}}</p>
+        <h2 class="text-center">TRATAMIENTO</h2>
+        <P>{{cita.tratamiento}}</P>
+    </div>
+    <div class="recipe border border-info rounded my-2 p-2 bg-light bg-opacity-10">
+        <h2 class="text-center">RECIPE MEDICO</h2>
+
+            <div style="overflow-x: auto; white-space: nowrap;">
+            <table class="table table-striped table-bordered table-sm p-0">
+                <thead class="thead-dark">
+                    <tr class="px-0" style="padding-top: 0;padding-bottom: 0; margin: 0; font-size: 12px;">
+                        <th class="text-center py-0">Medicamento</th>
+                        <th class="text-center py-0">Cantidad</th>
+                        <th class="text-center py-0">Nota</th>
+                    </tr>
+                    
+                </thead>
+                <tbody class="table-group-divider">
+                    {% for recipe_element in recipe_list %}
+                    <tr>
+                        <td class="text-center py-0 align-middle" style="padding: 0 5px;">{{ recipe_element.medicamento }}</td>
+                        <td class="text-center py-0 align-middle">{{ recipe_element.cantidad_deseada|default:"N/A" }}</td>
+                        <td class="text-center py-0 align-middle">{{ recipe_element.nota|default:"N/A" }}</td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+
+    </div>
+  </div>
+{% endblock %}

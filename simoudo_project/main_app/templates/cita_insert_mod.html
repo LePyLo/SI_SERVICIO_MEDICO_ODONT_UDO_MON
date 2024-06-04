@@ -1,0 +1,24 @@
+{% extends "base/base_template.html" %}
+{% load crispy_forms_tags %} 
+{% load static %}
+
+{% block content %}
+
+<div class=" bg-info rounded container p-4">
+    <h1>{{titulomain}}</h1>
+    <form  method="post">
+        {% csrf_token %}
+        {{ form | crispy }}
+
+        <div style="margin-top:5px;">
+            <button class="custom-btn custom-btn-green btn-sm text-center" name="guardar_y_regresar" type="submit" value="True"><i class="bi bi-plus-square"></i> Guardar y Salir</button>
+            <button class="custom-btn custom-btn-green btn-sm text-center" name="guardar_e_insertar_medicamento" type="submit" value="True"><i class="bi bi-plus-square"></i> Guardar y añadir Medicamento(s) a esta cita</button>
+            
+        </div>
+
+    </form>
+    
+</div>
+
+
+{% endblock %}

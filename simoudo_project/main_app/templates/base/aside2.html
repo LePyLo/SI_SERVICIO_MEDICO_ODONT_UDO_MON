@@ -1,0 +1,133 @@
+{% load static %}
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar aside-custom">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link aside-btn" href="{% url 'citas' %}">
+          <i class="bi bi-grid"></i>
+          <span>Inicio</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed aside-btn" data-bs-target="#citas-aside" data-bs-toggle="collapse" href="#">
+          <i class=" bi bi-receipt"></i><span>Cita</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="citas-aside" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'citas' %}">
+              <i class="bi bi-circle"></i><span>Listar citas</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'cita_insertar' %}">
+              <i class="bi bi-circle"></i><span>Crear nueva cita</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Forms Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed aside-btn" data-bs-target="#MODIFICAR-aside" data-bs-toggle="collapse" href="#">
+         <i class="bi bi-bandaid-fill"></i> <span>Paciente</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="MODIFICAR-aside" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>Listar Pacientes</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>Añadir Paciente</span>
+            </a>
+          </li>
+          
+
+        </ul>
+      </li>
+      
+      <!-- End Tables Nav -->
+
+
+      <li class="nav-item">
+        <a class="nav-link collapsed aside-btn" data-bs-target="#productos-aside" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-universal-access"></i> <span>Asistente Medico</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="productos-aside" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>Listar Asistentes</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>Añadir Asistente</span>
+            </a>
+          </li>
+          
+        </ul>
+      </li> 
+
+
+
+       <li class="nav-item">
+        <a class="nav-link collapsed aside-btn" data-bs-target="#clientes-aside" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-briefcase-fill"></i><span>Doctor</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="clientes-aside" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>Listar Doctores</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>Añadir Doctor</span>
+            </a>
+          </li>
+          
+        </ul>
+      </li> 
+      <!-- End Components Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed aside-btn" data-bs-target="#destinos-aside" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-capsule"></i><span>Medicamento</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="destinos-aside" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>Listar Medicamentos</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>Añadir Medicamento</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="bi bi-circle"></i><span>Consumo</span>
+            </a>
+          </li>
+          
+        </ul>
+      </li> 
+      <!-- End Components Nav -->
+
+      <li class="nav-heading" style="display: none;">Otros</li>
+
+      <li class="nav-item" style="display: none;">
+        <a class="nav-link collapsed aside-btn" href="#">
+          <i class="bi bi-person"></i>
+          <span>Perfil <span class="badge bg-secondary">WIP</span></span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
+
+    </ul>
+
+  </aside><!-- End Sidebar-->
