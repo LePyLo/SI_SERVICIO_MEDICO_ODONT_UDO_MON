@@ -40,7 +40,7 @@ def cita_insertar(request):
             return redirect(url)
     else:
         form = CitaForm()
-    context = {'form': form, 'titulomain':'Crear nueva cita.'}
+    context = {'form': form, 'titulomain':'Crear nueva cita Medica.'}
     return render(request, 'cita_insert_mod.html', context)
 
 @login_required
@@ -55,7 +55,7 @@ def cita_modificar(request,pk):
     else:
         form = CitaForm(instance=cita)
 
-    context = {'form': form, 'cita': cita, 'titulomain':'Modificar Cita.'}
+    context = {'form': form, 'cita': cita, 'titulomain':'Modificar Cita Medica.'}
     return render(request, 'cita_insert_mod.html', context)
 
 @login_required
@@ -108,6 +108,53 @@ def recipe_listar(request, pk):
 
 
 ######################################################################################
+######################################################################################
+#CONTROLADORES RELACIONADOS CON PACIENTES
+
+@login_required
+def paciente_obtener_todos(request):
+    pacientes = Paciente.objects.all().annotate(cita_count=Count('cita'))
+    context = {'pacientes':pacientes, 'titulo_web':'Listado de Pacientes Registrados.'}
+    return render(request, 'pacientes.html', context)
+
+@login_required
+def paciente_detail(request,pk):
+    pass
+
+@login_required
+def paciente_insertar(request):
+    pass
+
+@login_required
+def paciente_modificar(request,pk):
+    pass
+
+@login_required
+def paciente_eliminar(request,pk):
+    pass
+
+
+######################################################################################
+######################################################################################
+@login_required
+def x_obtener_todos(request):
+    pass
+
+@login_required
+def x_detail(request,pk):
+    pass
+
+@login_required
+def x_insertar(request):
+    pass
+
+@login_required
+def x_modificar(request,pk):
+    pass
+
+@login_required
+def x_eliminar(request,pk):
+    pass
 
 
 

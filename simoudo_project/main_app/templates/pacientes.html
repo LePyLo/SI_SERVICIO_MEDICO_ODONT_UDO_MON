@@ -1,0 +1,107 @@
+{% extends "base/base_template.html" %}
+{% load static %}
+
+
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.0.0/css/buttons.dataTables.min.css">
+{% endblock%}
+
+{% block content %} <!-- block 1-->
+
+<div class="container container-sm">
+    <h1>Listado de Pacientes Registrados.</h1>
+
+     <!-- Opciones -->
+<div class="row mb-3">
+    <div class="col-md-6 d-flex align-items-center">
+        <!--
+            <div class="form-check" style="margin-right:20px;">
+            <input type="checkbox" class="form-check-input mr-2" id="seleccionar-todo">
+            <label class="form-check-label small" for="seleccionar-todo">Seleccionar Todo</label>
+        </div>
+        -->
+        
+        <div class="mr-3">
+            <a href="{% url 'paciente_insertar' %}" id="crear-nuevo" class="custom-btn custom-btn-green btn-sm mb-3"><i class="bi bi-plus-square"></i> Crear Nuevo</a>
+        </div>
+    </div>
+</div>
+
+<div style="overflow-x: auto; white-space: nowrap;">
+    <table class="table table-striped table-bordered table-sm p-0" id="miTabla">
+        <thead class="thead-dark">
+            <tr class="px-0" style="padding-top: 0;padding-bottom: 0; margin: 0; font-size: 11px;">
+                <th class="text-center"></th>
+                <th class="text-center py-0">ID</th>
+                <th class="text-center py-0">NOMBRE</th>
+                <th class="text-center py-0">APELLIDO</th>
+                <th class="text-center py-0">SEXO</th>
+                <th class="text-center py-0">CITAS</th>
+                <th class="text-center py-0">CI</th>
+                <th class="text-center py-0">TELEFONO</th>
+                <th class="text-center py-0">FECHA REGISTRO</th>
+                <th class="text-center py-0">DIRECCIÓN</th>
+                <th class="text-center py-0">OPCIONES</th>
+            </tr>
+        </thead>
+        <tbody style="font-size:11px;">
+            {% for paciente in pacientes %}
+            <tr>
+                <td class="text-center">
+                    <a style="padding-top: 0;padding-bottom: 0; margin: 0; font-size: 12px;" class="btn btn-info btn-sm"
+                        href="{% url 'paciente_detail' paciente.id_paciente %}">
+                            <i class="bi bi-eye-fill"></i> 
+                        </a>
+                </td>
+                
+                <td class="text-center py-0 align-middle" style="padding: 0 0px;">{{ paciente.id_paciente }}</td>
+                <td class="text-center py-0 align-middle">{{ paciente.nombre |default:"N/A" }}</td>
+                <td class="text-center py-0 align-middle">{{ paciente.apellido |default:"N/A" }}</td>
+                <td class="text-center py-0 align-middle">{{ paciente.sexo|default:"N/A" }}</td>
+                <td class="text-center py-0 align-middle" style="white-space: nowrap; padding: 5px;">
+                    <button class="btn_mostrar" data-id="{{ paciente.id_paciente }}" style="padding: 0; margin: 0; border: none; font-size: 12px;">
+                        <a style="padding-top: 0;padding-bottom: 0; margin: 0; font-size: 12px;" class="btn btn-warning btn-sm {% if paciente.cita_count == 0 %} disabled {% endif %}"
+                        href="{% url 'paciente_detail' paciente.id_paciente %}">
+                            <i class="bi bi-dropbox"></i> Mostrar Historial ({{paciente.cita_count}})
+                        </a>
+                    </button>
+                
+                </td>
+                <td class="text-center py-0 align-middle">{{ cita.cid|default:"N/A" }}</td>
+                <td class="text-center py-0 align-middle">{{ cita.telefono|default:"N/A" }}</td>
+                <td class="text-center py-0 align-middle">{{ cita.creado_en|default:"N/A" }}</td>
+                <td class="text-center py-0 align-middle">{{ cita.direccion|default:"N/A" }}</td>
+                
+                <td class="text-center py-0 align-middle" style="white-space: nowrap; padding: 5px;">
+                    <button style="border:none; margin:0; padding:0;" ><a style="padding-top: 0;padding-bottom: 0; margin: 0; font-size: 12px;" class="btn btn-info btn-sm"  href="{% url 'paciente_modificar' paciente.id_paciente %}"><i class="bi bi-pen"></i> Editar</a></button>
+                    
+                    
+                </td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+</div>
+
+
+
+{% endblock content %} <!-- FIN block 1-->
+
+{% block scripts %}
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.0.0/js/dataTables.buttons.min.js"></script>
+<!-- Librería JS de HTML5 export (botones de exportación) -->
+<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.html5.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
+
+{% endblock %}

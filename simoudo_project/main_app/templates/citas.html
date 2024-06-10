@@ -35,7 +35,7 @@
                 <th class="text-center"></th>
                 <th class="text-center py-0">ID</th>
                 <th class="text-center py-0">PACIENTE</th>
-                <th class="text-center py-0">ACTIVA</th>
+                <th class="text-center py-0">ESTADO</th>
                 <th class="text-center py-0">DOCTOR</th>
                 <th class="text-center py-0">ASISTENTE</th>
                 <th class="text-center py-0">FECHA EMISIÓN</th>
@@ -56,7 +56,7 @@
                 </td>
                 
                 <td class="text-center py-0 align-middle" style="padding: 0 0px;">{{ cita.id_cita }}</td>
-                <td class="text-center py-0 align-middle">{{ cita.paciente |default:"N/A" }}</td>
+                <td class="text-center py-0 align-middle"><a  href="{% url 'paciente_detail' cita.paciente.id_paciente %}">{{ cita.paciente |default:"N/A" }}</a></td>
                 <td 
                 class="text-center py-0 align-middle text-white
                 {% if cita.activo == True %} bg-primary
