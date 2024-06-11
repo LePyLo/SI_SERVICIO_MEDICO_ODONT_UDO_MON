@@ -13,7 +13,7 @@ class CitaForm(forms.ModelForm):
     paciente = forms.ModelChoiceField(queryset=Paciente.objects.all(), label='Paciente', widget=forms.Select(attrs={'class': 'form-control'}))
     doctor = forms.ModelChoiceField(queryset=Doctor.objects.all(), label='Doctor', widget=forms.Select(attrs={'class': 'form-control'}))
     asistente = forms.ModelChoiceField(queryset=Asistente.objects.all(), label='Asistente', required=False, widget=forms.Select(attrs={'class': 'form-control'}))
-    activo = forms.ChoiceField(label='Estado', choices=[(True, 'Activo'), (False, 'Inactivo')], widget=forms.RadioSelect(attrs={'class': 'form-check'}))
+    activo = forms.ChoiceField(label='Estado', choices=[(True, 'En Proceso'), (False, 'Finalizada')], widget=forms.RadioSelect(attrs={'class': 'form-check'}))
 
     titulo = forms.CharField(label='Título', max_length=250, widget=forms.TextInput(attrs={'class': 'form-control'}))
     diagnostico = forms.CharField(label='Diagnóstico', max_length=250, widget=forms.Textarea(attrs={'class': 'form-control'}))
@@ -70,3 +70,16 @@ class RecipeForm(forms.ModelForm):
 
     
 
+class PacienteForm(forms.ModelForm):
+    
+
+    nombre = forms.CharField(label='Nombre', max_length=200,widget=forms.TextInput(attrs={'class': 'form-control'}))
+    apellido = forms.CharField(label='Apellido', max_length=200,widget=forms.TextInput(attrs={'class': 'form-control'}))
+    sexo = forms.ChoiceField(label="Género", choices=Paciente.SEXO)
+    direccion = forms.CharField(label="Dirección", max_length=255, required=False)
+    telefono = forms.CharField(label="Número de teléfono", max_length=12, required=False)
+    cid = forms.CharField(label="Cédula de identidad", max_length=15, required=False)
+    class Meta:
+        model = Paciente
+        fields = '__all__'
+        use_crispy_forms = True

@@ -68,10 +68,10 @@
                     </button>
                 
                 </td>
-                <td class="text-center py-0 align-middle">{{ cita.cid|default:"N/A" }}</td>
-                <td class="text-center py-0 align-middle">{{ cita.telefono|default:"N/A" }}</td>
-                <td class="text-center py-0 align-middle">{{ cita.creado_en|default:"N/A" }}</td>
-                <td class="text-center py-0 align-middle">{{ cita.direccion|default:"N/A" }}</td>
+                <td class="text-center py-0 align-middle">{{ paciente.cid|default:"N/A" }}</td>
+                <td class="text-center py-0 align-middle">{{ paciente.telefono|default:"N/A" }}</td>
+                <td class="text-center py-0 align-middle">{{ paciente.creado_en|default:"N/A" }}</td>
+                <td class="text-center py-0 align-middle">{{ paciente.direccion|default:"N/A" }}</td>
                 
                 <td class="text-center py-0 align-middle" style="white-space: nowrap; padding: 5px;">
                     <button style="border:none; margin:0; padding:0;" ><a style="padding-top: 0;padding-bottom: 0; margin: 0; font-size: 12px;" class="btn btn-info btn-sm"  href="{% url 'paciente_modificar' paciente.id_paciente %}"><i class="bi bi-pen"></i> Editar</a></button>

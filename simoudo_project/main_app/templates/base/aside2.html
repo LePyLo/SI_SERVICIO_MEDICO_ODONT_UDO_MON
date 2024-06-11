@@ -41,7 +41,7 @@
           </li>
           <li>
             <a href="{% url 'paciente_insertar' %}">
-              <i class="bi bi-circle"></i><span>Añadir Paciente</span>
+              <i class="bi bi-circle"></i><span>Registrar Nuevo Paciente</span>
             </a>
           </li>
           
@@ -64,7 +64,7 @@
           </li>
           <li>
             <a href="#">
-              <i class="bi bi-circle"></i><span>Añadir Asistente</span>
+              <i class="bi bi-circle"></i><span>Registrar Nuevo Asistente Medico</span>
             </a>
           </li>
           
@@ -85,7 +85,7 @@
           </li>
           <li>
             <a href="#">
-              <i class="bi bi-circle"></i><span>Añadir Doctor</span>
+              <i class="bi bi-circle"></i><span>Registrar Nuevo Doctor</span>
             </a>
           </li>
           
@@ -105,28 +105,24 @@
           </li>
           <li>
             <a href="#">
-              <i class="bi bi-circle"></i><span>Añadir Medicamento</span>
+              <i class="bi bi-circle"></i><span>Añadir Nuevo Medicamento</span>
             </a>
           </li>
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>Consumo</span>
-            </a>
-          </li>
-          
+
         </ul>
       </li> 
       <!-- End Components Nav -->
 
-      <li class="nav-heading" style="display: none;">Otros</li>
+      {% if user.is_staff %}
+      <li class="nav-heading">Otros</li>
 
-      <li class="nav-item" style="display: none;">
-        <a class="nav-link collapsed aside-btn" href="#">
+      <li class="nav-item">
+        <a class="nav-link collapsed aside-btn" href="{% url 'admin:index' %}">
           <i class="bi bi-person"></i>
-          <span>Perfil <span class="badge bg-secondary">WIP</span></span>
+          <span>ADMINISTRACIÓN <span class="badge bg-secondary">WIP</span></span>
         </a>
       </li><!-- End Profile Page Nav -->
-
+      {% endif %}
 
     </ul>
 

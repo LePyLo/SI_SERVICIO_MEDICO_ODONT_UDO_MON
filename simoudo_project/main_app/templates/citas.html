@@ -56,7 +56,7 @@
                 </td>
                 
                 <td class="text-center py-0 align-middle" style="padding: 0 0px;">{{ cita.id_cita }}</td>
-                <td class="text-center py-0 align-middle"><a  href="{% url 'paciente_detail' cita.paciente.id_paciente %}">{{ cita.paciente |default:"N/A" }}</a></td>
+                <td class="text-center py-0 align-middle"><a  href="{% url 'paciente_detail' cita.paciente.id_paciente %}">{{ cita.paciente.get_full_name |default:"N/A" }}</a></td>
                 <td 
                 class="text-center py-0 align-middle text-white
                 {% if cita.activo == True %} bg-primary
@@ -67,17 +67,26 @@
                 {% elif cita.activo == False %} bi-dash-circle-dotted
                 {% endif %}"></i> 
                 <span>
-                    {% if cita.activo == True %} Activa
-                    {% elif cita.activo == False %} Inactiva
+                    {% if cita.activo == True %} En Proceso
+                    {% elif cita.activo == False %} Concluida
                     {% endif %}
                 </span>
                 
                 </td>
-                <td class="text-center py-0 align-middle">{{ cita.doctor|default:"N/A" }}</td>
-                <td class="text-center py-0 align-middle">{{ cita.asistente |default:"N/A" }}</td>
+                <td class="text-center py-0 align-middle">{{ cita.doctor.get_full_name|default:"N/A" }}</td>
+                <td class="text-center py-0 align-middle">{{ cita.asistente.get_full_name |default:"N/A" }}</td>
                 <td class="text-center py-0 align-middle">{{ cita.fecha_creacion|default:"N/A" }}</td>
                 <td class="text-center py-0 align-middle">{{ cita.fecha_propuesta|default:"N/A" }}</td>
-                <td class="text-center py-0 align-middle">{{ cita.verificar_cita }}</td>
+                <td class="text-center py-0 align-middle">
+                    {% if cita.verificar_cita < 0 %}
+                        Pasado
+                    {% elif cita.verificar_cita == 0 %}
+                        Hoy (0)
+                    {% else %}
+                    {{ cita.verificar_cita }}
+                    {% endif %}
+                </td>
+
                 <td class="text-center py-0 align-middle" style="white-space: nowrap; padding: 5px;">
                     <button class="btn_mostrar" data-id="{{ orden.id_orden }}" style="padding: 0; margin: 0; border: none; font-size: 12px;">
                         <a style="padding-top: 0;padding-bottom: 0; margin: 0; font-size: 12px;" class="btn btn-warning btn-sm {% if cita.recipe == 0 %} disabled {% endif %}"

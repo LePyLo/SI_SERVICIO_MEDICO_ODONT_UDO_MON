@@ -9,7 +9,7 @@ from django.db.models import Count
 #Creo que dejare estas importanciones de esta forma de momento, pero bien pude importar todo
 #pero para reducir la posibilidad de errores se importó asi.
 from .models import Doctor, Paciente, Medicamento, Asistente, Cita, User, Recipe
-from .forms import CitaForm, RecipeForm
+from .forms import CitaForm, RecipeForm, PacienteForm
 
 ######################################################################################
 ######################################################################################
@@ -40,7 +40,7 @@ def cita_insertar(request):
             return redirect(url)
     else:
         form = CitaForm()
-    context = {'form': form, 'titulomain':'Crear nueva cita Medica.'}
+    context = {'form': form, 'titulomain':'Crear nueva cita Medica.', 'add_btn':'YES'}
     return render(request, 'cita_insert_mod.html', context)
 
 @login_required
@@ -106,6 +106,21 @@ def recipe_listar(request, pk):
     return render(request, 'recipes.html', context)
 
 
+@login_required
+def recipe_modificar(request,pk):
+    recipe = get_object_or_404(Recipe, pk=pk)
+
+    if request.method == 'POST':
+        form = RecipeForm(request.POST, instance=recipe)
+        if form.is_valid():
+            form.save()
+            return redirect('recipes', str(recipe.cita.id_cita))
+    else:
+        form = RecipeForm(instance=recipe)
+
+    context = {'form': form, 'recipe': recipe, 'titulomain':'Modificar Elemento Cita Medica.'}
+    return render(request, 'recipe_modificar.html', context)
+    
 
 ######################################################################################
 ######################################################################################
@@ -123,11 +138,33 @@ def paciente_detail(request,pk):
 
 @login_required
 def paciente_insertar(request):
-    pass
+    if request.method == 'POST':
+        form = PacienteForm(request.POST)
+        if request.POST.get('guardar_y_regresar' )  and form.is_valid() :
+            form.save()
+            messages.success(request, "Paciente registrado exitosamente.")
+            return redirect('pacientes')
+
+    else:
+        form = PacienteForm()
+    context = {'form': form, 'titulomain':'Registrar nuevo paciente.', 'add_btn':'NO'}
+    return render(request, 'cita_insert_mod.html', context)
+
 
 @login_required
 def paciente_modificar(request,pk):
-    pass
+    paciente = get_object_or_404(Paciente, pk=pk)
+
+    if request.method == 'POST':
+        form = PacienteForm(request.POST, instance=paciente)
+        if form.is_valid():
+            form.save()
+            return redirect('pacientes')
+    else:
+        form = PacienteForm(instance=paciente)
+
+    context = {'form': form, 'paciente': paciente, 'titulomain':'Modificar Datos de Paciente.', 'add_btn':'NO'}
+    return render(request, 'cita_insert_mod.html', context)
 
 @login_required
 def paciente_eliminar(request,pk):
