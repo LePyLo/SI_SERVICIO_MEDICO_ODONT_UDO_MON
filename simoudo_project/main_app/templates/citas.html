@@ -52,7 +52,7 @@
                     <a style="padding-top: 0;padding-bottom: 0; margin: 0; font-size: 12px;" class="btn btn-info btn-sm"
                         href="{% url 'cita_detail' cita.id_cita %}">
                             <i class="bi bi-eye-fill"></i> 
-                        </a>
+                    </a>
                 </td>
                 
                 <td class="text-center py-0 align-middle" style="padding: 0 0px;">{{ cita.id_cita }}</td>
@@ -73,7 +73,9 @@
                 </span>
                 
                 </td>
-                <td class="text-center py-0 align-middle">{{ cita.doctor.get_full_name|default:"N/A" }}</td>
+                <td class="text-center py-0 align-middle">
+                    <a href="{% url 'doctor_detail' cita.doctor.id_doctor %}">{{ cita.doctor.get_full_name|default:"N/A" }}</a>
+                </td>
                 <td class="text-center py-0 align-middle">{{ cita.asistente.get_full_name |default:"N/A" }}</td>
                 <td class="text-center py-0 align-middle">{{ cita.fecha_creacion|default:"N/A" }}</td>
                 <td class="text-center py-0 align-middle">{{ cita.fecha_propuesta|default:"N/A" }}</td>

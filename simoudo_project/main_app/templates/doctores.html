@@ -21,20 +21,14 @@
 {% block content %} <!-- block 1-->
 
 <div class="container container-sm">
-    <h1>Listado de Pacientes Registrados.</h1>
+    <h1>Listado de Doctores Registrados.</h1>
 
      <!-- Opciones -->
 <div class="row mb-3">
     <div class="col-md-6 d-flex align-items-center">
-        <!--
-            <div class="form-check" style="margin-right:20px;">
-            <input type="checkbox" class="form-check-input mr-2" id="seleccionar-todo">
-            <label class="form-check-label small" for="seleccionar-todo">Seleccionar Todo</label>
-        </div>
-        -->
-        
+
         <div class="mr-3">
-            <a href="{% url 'paciente_insertar' %}" id="crear-nuevo" class="custom-btn custom-btn-green btn-sm mb-3"><i class="bi bi-plus-square"></i> Crear Nuevo</a>
+            <a href="{% url 'doctor_insertar' %}" id="crear-nuevo" class="custom-btn custom-btn-green btn-sm mb-3"><i class="bi bi-plus-square"></i> Crear Nuevo</a>
         </div>
     </div>
 </div>
@@ -48,43 +42,37 @@
                 <th class="text-center py-0">NOMBRE</th>
                 <th class="text-center py-0">APELLIDO</th>
                 <th class="text-center py-0">SEXO</th>
-                <th class="text-center py-0">NUM. CITAS</th>
                 <th class="text-center py-0">CI</th>
+                <th class="text-center py-0">ESPECIALIDAD</th>
                 <th class="text-center py-0">TELEFONO</th>
                 <th class="text-center py-0">EMAIL</th>
-                <th class="text-center py-0">FECHA REGISTRO</th>
                 <th class="text-center py-0">DIRECCIÓN</th>
                 <th class="text-center py-0">OPCIONES</th>
             </tr>
         </thead>
         <tbody style="font-size:11px;">
-            {% for paciente in pacientes %}
+            {% for doctor in doctores %}
             <tr>
                 <td class="text-center">
                     <a style="padding-top: 0;padding-bottom: 0; margin: 0; font-size: 12px;" class="btn btn-info btn-sm"
-                        href="{% url 'paciente_detail' paciente.id_paciente %}">
+                        href="{%url 'doctor_detail' doctor.id_doctor%}">
                             <i class="bi bi-eye-fill"></i> 
-                        </a>
+                    </a>
                 </td>
                 
-                <td class="text-center py-0 align-middle" style="padding: 0 0px;">{{ paciente.id_paciente }}</td>
-                <td class="text-center py-0 align-middle">{{ paciente.nombre |default:"N/A" }}</td>
-                <td class="text-center py-0 align-middle">{{ paciente.apellido |default:"N/A" }}</td>
-                <td class="text-center py-0 align-middle">{{ paciente.sexo|default:"N/A" }}</td>
-                <td class="text-center py-0 align-middle" style="white-space: nowrap; padding: 5px;">
-                    {{paciente.cita_count}}
+                <td class="text-center py-0 align-middle" style="padding: 0 0px;">{{ doctor.id_doctor }}</td>
+                <td class="text-center py-0 align-middle">{{ doctor.nombre |default:"N/A" }}</td>
+                <td class="text-center py-0 align-middle">{{ doctor.apellido |default:"N/A" }}</td>
+                <td class="text-center py-0 align-middle">{{ doctor.sexo|default:"N/A" }}</td>
                 
-                </td>
-                <td class="text-center py-0 align-middle">{{ paciente.cid|default:"N/A" }}</td>
-                <td class="text-center py-0 align-middle">{{ paciente.telefono|default:"N/A" }}</td>
-                <td class="text-center py-0 align-middle">{{ paciente.email|default:"N/A" }}</td>
-                <td class="text-center py-0 align-middle">{{ paciente.creado_en|default:"N/A" }}</td>
-                <td class="text-center py-0 align-middle">{{ paciente.direccion|default:"N/A" }}</td>
+                <td class="text-center py-0 align-middle">{{ doctor.cid|default:"N/A" }}</td>
+                <td class="text-center py-0 align-middle">{{ doctor.especialidad|default:"N/A" }}</td>
+                <td class="text-center py-0 align-middle">{{ doctor.telefono|default:"N/A" }}</td>
+                <td class="text-center py-0 align-middle">{{ doctor.email|default:"N/A" }}</td>
+                <td class="text-center py-0 align-middle">{{ doctor.direccion|default:"N/A" }}</td>
                 
                 <td class="text-center py-0 align-middle" style="white-space: nowrap; padding: 5px;">
-                    <button style="border:none; margin:0; padding:0;" ><a style="padding-top: 0;padding-bottom: 0; margin: 0; font-size: 12px;" class="btn btn-info btn-sm"  href="{% url 'paciente_modificar' paciente.id_paciente %}"><i class="bi bi-pen"></i> Editar</a></button>
-                    
-                    
+                    <button style="border:none; margin:0; padding:0;" ><a style="padding-top: 0;padding-bottom: 0; margin: 0; font-size: 12px;" class="btn btn-info btn-sm"  href="{% url 'doctor_modificar' doctor.id_doctor %}"><i class="bi bi-pen"></i> Editar</a></button>
                 </td>
                 
             </tr>

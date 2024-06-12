@@ -9,7 +9,7 @@ from django.db.models import Count
 #Creo que dejare estas importanciones de esta forma de momento, pero bien pude importar todo
 #pero para reducir la posibilidad de errores se importó asi.
 from .models import Doctor, Paciente, Medicamento, Asistente, Cita, User, Recipe
-from .forms import CitaForm, RecipeForm, PacienteForm
+from .forms import CitaForm, RecipeForm, PacienteForm, DoctorForm
 
 ######################################################################################
 ######################################################################################
@@ -41,7 +41,7 @@ def cita_insertar(request):
     else:
         form = CitaForm()
     context = {'form': form, 'titulomain':'Crear nueva cita Medica.', 'add_btn':'YES'}
-    return render(request, 'cita_insert_mod.html', context)
+    return render(request, 'insert_mod_temp.html', context)
 
 @login_required
 def cita_modificar(request,pk):
@@ -56,7 +56,7 @@ def cita_modificar(request,pk):
         form = CitaForm(instance=cita)
 
     context = {'form': form, 'cita': cita, 'titulomain':'Modificar Cita Medica.'}
-    return render(request, 'cita_insert_mod.html', context)
+    return render(request, 'insert_mod_temp.html', context)
 
 @login_required
 def cita_eliminar(request):
@@ -134,7 +134,13 @@ def paciente_obtener_todos(request):
 
 @login_required
 def paciente_detail(request,pk):
-    pass
+    paciente = get_object_or_404(Paciente, pk=pk)
+    historial = Cita.objects.filter(paciente=paciente)
+
+    context = {'paciente':paciente,
+               'historial':historial,
+               'titulo_web':'Información del Paciente: '+str(paciente.get_full_name())}
+    return render(request, 'paciente_detail.html', context)
 
 @login_required
 def paciente_insertar(request):
@@ -148,7 +154,7 @@ def paciente_insertar(request):
     else:
         form = PacienteForm()
     context = {'form': form, 'titulomain':'Registrar nuevo paciente.', 'add_btn':'NO'}
-    return render(request, 'cita_insert_mod.html', context)
+    return render(request, 'insert_mod_temp.html', context)
 
 
 @login_required
@@ -164,10 +170,61 @@ def paciente_modificar(request,pk):
         form = PacienteForm(instance=paciente)
 
     context = {'form': form, 'paciente': paciente, 'titulomain':'Modificar Datos de Paciente.', 'add_btn':'NO'}
-    return render(request, 'cita_insert_mod.html', context)
+    return render(request, 'insert_mod_temp.html', context)
 
 @login_required
 def paciente_eliminar(request,pk):
+    pass
+
+######################################################################################
+######################################################################################
+# CONTROLADORES RELACIONADOS CON DOCTORES.
+@login_required
+def doctor_obtener_todos(request):
+    doctores = Doctor.objects.all().annotate(cita_count=Count('cita'))
+    context = {'doctores':doctores, 'titulo_web':'Listado de Doctores Registrados.'}
+    return render(request, 'Doctores.html', context)
+
+
+@login_required
+def doctor_detail(request,pk):
+    doctor = get_object_or_404(Doctor, pk=pk)
+    context = {'doctor':doctor,
+               'titulo_web':'Información del Doctor: '+str(doctor.get_full_name())}
+    return render(request, 'doctor_detail.html', context)
+
+@login_required
+def doctor_insertar(request):
+    if request.method == 'POST':
+        form = DoctorForm(request.POST)
+        if request.POST.get('guardar_y_regresar' )  and form.is_valid() :
+            form.save()
+            messages.success(request, "Doctor registrado exitosamente.")
+            return redirect('doctores')
+
+    else:
+        form = DoctorForm()
+    context = {'form': form, 'titulomain':'Registrar Nuevo Doctor.', 'add_btn':'NO'}
+    return render(request, 'insert_mod_temp.html', context)
+
+
+@login_required
+def doctor_modificar(request,pk):
+    doctor = get_object_or_404(Doctor, pk=pk)
+
+    if request.method == 'POST':
+        form = DoctorForm(request.POST, instance=doctor)
+        if form.is_valid():
+            form.save()
+            return redirect('doctores')
+    else:
+        form = DoctorForm(instance=doctor)
+
+    context = {'form': form, 'doctor': doctor, 'titulomain':'Modificar Datos de Doctor.', 'add_btn':'NO'}
+    return render(request, 'insert_mod_temp.html', context)
+
+@login_required
+def doctor_eliminar(request,pk):
     pass
 
 

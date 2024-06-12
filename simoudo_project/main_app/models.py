@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.models import UserManager, AbstractUser, PermissionsMixin
 from django.utils import timezone
 from django.utils.translation import gettext as _
+from django.core.validators import EmailValidator
 
 # Create your models here.
 
@@ -77,9 +78,11 @@ class Paciente(models.Model):
     nombre = models.CharField(max_length=200)
     apellido = models.CharField(max_length=200)
     sexo = models.CharField(max_length=10, choices=SEXO)
-    direccion = models.TextField(blank=True)
+    direccion = models.TextField(blank=True, null=True)
     telefono = models.CharField(max_length=12, blank=True, null=True)
     cid = models.CharField(max_length=15, blank=True)
+    notas = models.TextField(max_length=250, blank=True, null=True)
+    email = models.CharField(max_length=255, validators=[EmailValidator()], blank=True)
     def __str__(self):
         return(f"{self.nombre}")
     def get_full_name(self):
@@ -110,6 +113,9 @@ class Doctor(models.Model):
     telefono = models.CharField(max_length=12, blank=True, null=True)
     especialidad = models.CharField(max_length=15, choices=ESPECIALIDAD)
     user_ref = models.ForeignKey(User, on_delete=models.RESTRICT)
+    direccion =  models.TextField(blank=True, null=True)
+    notas = models.TextField(max_length=250, blank=True, null=True)
+    email = models.CharField(max_length=255, validators=[EmailValidator()], blank=True)
     def __str__(self):
         return(f"{self.nombre}")
     def get_full_name(self):
@@ -131,6 +137,8 @@ class Asistente(models.Model):
     telefono = models.CharField(max_length=12, blank=True, null=True)
     user_ref = models.ForeignKey(User, on_delete=models.RESTRICT)
     doctor_ref = models.ForeignKey(Doctor, on_delete=models.RESTRICT, null=True)
+    notas = models.TextField(max_length=250, blank=True, null=True)
+    email = models.CharField(max_length=255, validators=[EmailValidator()], blank=True)
     def __str__(self):
         return(f"{self.nombre}")
     def get_full_name(self):
@@ -144,6 +152,7 @@ class Medicamento(models.Model):
     descripcion = models.TextField(max_length=250, blank=True, null=True)
     cant_disponible = models.PositiveIntegerField()
     image_url = models.CharField(max_length=250, null=True, blank=True)
+    notas = models.TextField(max_length=250, blank=True, null=True)
     def __str__(self):
         return(f"{self.nombre}")
 
