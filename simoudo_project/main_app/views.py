@@ -296,15 +296,40 @@ def medicamento_obtener_todos(request):
 
 @login_required
 def medicamento_detail(request,pk):
-    pass
+    medicamento = get_object_or_404(Medicamento, pk=pk)
+    context = {'medicamento':medicamento,
+               'titulo_web':'Información del Medicamento: '+str(medicamento.nombre)}
+    return render(request, 'medicamento_detail.html', context)
 
 @login_required
 def medicamento_insertar(request):
-    pass
+    if request.method == 'POST':
+        form = MedicamentoForm(request.POST)
+        if request.POST.get('guardar_y_regresar' )  and form.is_valid() :
+            form.save()
+            messages.success(request, "Medicamento añadido exitosamente.")
+            return redirect('medicamentos')
+
+    else:
+        form =MedicamentoForm()
+    context = {'form': form, 'titulomain':'Registrar Nuevo Medicamento.', 'add_btn':'NO'}
+    return render(request, 'insert_mod_temp.html', context)
 
 @login_required
 def medicamento_modificar(request,pk):
-    pass
+    medicamento = get_object_or_404(Medicamento, pk=pk)
+
+    if request.method == 'POST':
+        form = MedicamentoForm(request.POST, instance=medicamento)
+        if form.is_valid():
+            form.save()
+            messages.info(request, "Datos de Medicamento actualizados con éxito.")
+            return redirect('medicamentos')
+    else:
+        form = MedicamentoForm(instance=medicamento)
+
+    context = {'form': form, 'medicamento': medicamento, 'titulomain':'Modificar Datos de Medicamento.', 'add_btn':'NO'}
+    return render(request, 'insert_mod_temp.html', context)
 
 @login_required
 def medicamento_eliminar(request,pk):

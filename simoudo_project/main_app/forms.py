@@ -243,7 +243,7 @@ class MedicamentoForm(forms.ModelForm):
 
     # Personalizar etiquetas de campos
     nombre = forms.CharField(label='Nombre del Medicamento', max_length=250)
-    descripcion = forms.CharField(label='Descripción', max_length=250, widget=forms.Textarea)
+    descripcion = forms.CharField(label='Descripción',required=False,  max_length=250, widget=forms.Textarea)
     cant_disponible = forms.IntegerField(label='Cantidad Disponible', min_value=1)
     image_url = forms.CharField(label='URL de la Imagen', max_length=250, required=False)
     notas = forms.CharField(label='Notas', max_length=250, widget=forms.Textarea, required=False)

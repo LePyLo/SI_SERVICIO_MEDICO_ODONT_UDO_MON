@@ -1,0 +1,108 @@
+{% extends "base/base_template.html" %}
+{% load static %}
+
+{% block content %}
+
+<style>
+            .producto {
+            max-width: 90%;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin-top:20px;
+        }
+
+        .producto__imagen {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 20px;
+
+        }
+
+        .producto__imagen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .producto__informacion {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .producto__titulo {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .producto__descripcion {
+            text-align: justify;
+        }
+
+        .producto__precio {
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .producto__cantidad {
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .producto__tabla {
+            margin-top: 20px;
+        }
+
+        .producto__tabla tr {
+            border-bottom: 1px solid #ccc;
+        }
+
+        .producto__tabla th,
+        .producto__tabla td {
+            padding: 5px;
+            vertical-align: middle;
+        }
+
+        .producto__tabla th {
+            font-weight: bold;
+        }
+</style>
+<div class="container">
+    <div class="producto">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="producto__imagen">
+                    {% if medicamento.image_url  %}
+                    <img src="{% static medicamento.image_url %}" alt="Imagen del Medicamento">
+                    {% else %}
+                    <img src="{% static 'images/medicamento_default.jpg' %}" alt="Imagen del Medicamento">
+                    
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <div class="producto__informacion">
+                    <h2 class="producto__titulo">{{medicamento.nombre}}</h2>
+                    <p class="producto__descripcion">
+                        {{medicamento.descripcion|default:'Sin descripción brindada.'}}
+                    </p>
+                    <a style=" background-color: #84aebb5b; width:16rem; text-decoration-line:underline;" class="opacity-10 btn  h6 underline text-wrap" href="{% url 'medicamento_modificar' medicamento.id_medicamento %}">Editar este medicamento</a>
+                    <table class="producto__tabla">
+                        <tr>
+                            <th>Cantidad disponible:</th>
+                            <td>{{medicamento.cant_disponible}} unidades.</td>
+                        </tr>
+                        <tr>
+                            <th>Notas adicionales:</th>
+                            <td>{{medicamento.notas| default:'Sin notas adicionales.'}}</td>
+                        </tr>
+                        </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

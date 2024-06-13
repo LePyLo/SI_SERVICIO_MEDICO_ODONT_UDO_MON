@@ -48,7 +48,7 @@
             <tr>
                 <td class="text-center"><input type="checkbox" class="seleccionar-elemento" data-id="{{ recipe_element.id_recipe }}"></td>
                 
-                <td class="text-center py-0 align-middle" style="padding: 0 5px;">{{ recipe_element.medicamento }}</td>
+                <td class="text-center py-0 align-middle" style="padding: 0 5px;"><a href="{% url 'medicamento_detail' recipe_element.medicamento.id_medicamento %}">{{ recipe_element.medicamento }}</a></td>
                 <td class="text-center py-0 align-middle">{{ recipe_element.cantidad_deseada|default:"N/A" }}</td>
                 <td class="text-center py-0 align-middle">{{ recipe_element.nota|default:"N/A" }}</td>
   
