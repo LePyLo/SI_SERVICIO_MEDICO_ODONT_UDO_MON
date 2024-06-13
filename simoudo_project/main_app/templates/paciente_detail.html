@@ -67,7 +67,7 @@
                                             </td>
 
                                             <td class="text-center py-0 align-middle" style="padding: 0 5px;">{{ cita.id_cita }}</td>
-                                            <td class="text-center py-0 align-middle">{{cita.doctor|default:"N/A" }}</td>
+                                            <td class="text-center py-0 align-middle">{{cita.doctor.get_full_name|default:"N/A" }}</td>
                                             <td class="text-center py-0 align-middle">{{ cita.titulo|default:"N/A" }}</td>
                                             <td class="text-center py-0 align-middle">{{ cita.fecha_creacion|default:"N/A" }}</td>
                                             <td class="text-center py-0 align-middle">{{ cita.fecha_propuesta|default:"N/A" }}</td>

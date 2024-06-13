@@ -9,7 +9,7 @@ from django.db.models import Count
 #Creo que dejare estas importanciones de esta forma de momento, pero bien pude importar todo
 #pero para reducir la posibilidad de errores se importó asi.
 from .models import Doctor, Paciente, Medicamento, Asistente, Cita, User, Recipe
-from .forms import CitaForm, RecipeForm, PacienteForm, DoctorForm
+from .forms import CitaForm, RecipeForm, PacienteForm, DoctorForm, AsistenteForm
 
 ######################################################################################
 ######################################################################################
@@ -51,6 +51,7 @@ def cita_modificar(request,pk):
         form = CitaForm(request.POST, instance=cita)
         if form.is_valid():
             form.save()
+            messages.info(request, "Información de la Cita actualizada con éxito.")
             return redirect('citas')
     else:
         form = CitaForm(instance=cita)
@@ -86,7 +87,7 @@ def recipe_insertar(request,pk):
             recipe = form.save(commit=False)
             recipe.cita = Cita.objects.get(pk=pk)
             recipe.save()
-            messages.success(request, "Se registró el producto a la cita exitosamente.")
+            messages.success(request, "Se registró el medicamento a la cita exitosamente.")
             form = RecipeForm(pk=pk)
 
     else:
@@ -114,6 +115,7 @@ def recipe_modificar(request,pk):
         form = RecipeForm(request.POST, instance=recipe)
         if form.is_valid():
             form.save()
+            messages.info(request, "Elemento de recipe de cita actualizado con éxito.")
             return redirect('recipes', str(recipe.cita.id_cita))
     else:
         form = RecipeForm(instance=recipe)
@@ -165,6 +167,7 @@ def paciente_modificar(request,pk):
         form = PacienteForm(request.POST, instance=paciente)
         if form.is_valid():
             form.save()
+            messages.info(request, "Información de Paciente actualizada exitosamente.")
             return redirect('pacientes')
     else:
         form = PacienteForm(instance=paciente)
@@ -216,6 +219,7 @@ def doctor_modificar(request,pk):
         form = DoctorForm(request.POST, instance=doctor)
         if form.is_valid():
             form.save()
+            messages.info(request, "Información de doctor actualizada exitosamente.")
             return redirect('doctores')
     else:
         form = DoctorForm(instance=doctor)
@@ -225,6 +229,59 @@ def doctor_modificar(request,pk):
 
 @login_required
 def doctor_eliminar(request,pk):
+    pass
+
+
+######################################################################################
+######################################################################################
+# CONTROLADORES RELACIONADOS CON ASISTENTES MEDICOS.
+@login_required
+def asistente_obtener_todos(request):
+    asistentes = Asistente.objects.all()
+    context = {'asistentes':asistentes, 'titulo_web':'Listado de Asistentes Medicos Registrados.'}
+    return render(request, 'asistentes.html', context)
+
+
+@login_required
+def asistente_detail(request,pk):
+    asistente_medico = get_object_or_404(Asistente, pk=pk)
+    context = {'asistente':asistente_medico,
+               'titulo_web':'Información del Asistente Medico: '+str(asistente_medico.get_full_name())}
+    return render(request, 'asistente_detail.html', context)
+
+@login_required
+def asistente_insertar(request):
+    if request.method == 'POST':
+        form = AsistenteForm(request.POST)
+        if request.POST.get('guardar_y_regresar' )  and form.is_valid() :
+            form.save()
+            messages.success(request, "Asistente Medico registrado exitosamente.")
+            return redirect('asistentes')
+
+    else:
+        form =AsistenteForm()
+    context = {'form': form, 'titulomain':'Registrar Nuevo Asistente medico.', 'add_btn':'NO'}
+    return render(request, 'insert_mod_temp.html', context)
+
+
+@login_required
+def asistente_modificar(request,pk):
+    asistente = get_object_or_404(Asistente, pk=pk)
+
+    if request.method == 'POST':
+        form = AsistenteForm(request.POST, instance=asistente)
+        if form.is_valid():
+            form.save()
+            messages.info(request, "Información de Asistente Medico actualizada exitosamente.")
+            return redirect('asistentes')
+    else:
+        form = AsistenteForm(instance=asistente)
+
+    context = {'form': form, 'asistente': asistente, 'titulomain':'Modificar Datos de Asistente Medico.', 'add_btn':'NO'}
+    return render(request, 'insert_mod_temp.html', context)
+
+@login_required
+def asistente_eliminar(request,pk):
     pass
 
 
@@ -278,6 +335,7 @@ def logout_user(request):
     logout(request)
     messages.success(request, "Te has desconectado correctamente")
     return HttpResponseRedirect(reverse('login')) 
+
 
 ######################################################################################
 ######################################################################################

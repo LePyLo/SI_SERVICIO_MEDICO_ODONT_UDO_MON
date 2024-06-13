@@ -1,0 +1,47 @@
+{% extends "base/base_template.html" %}
+{% load static %}
+
+{% block content %}
+<section class="bg-light">
+    <div class="container">
+        <div class="row ">
+            <div class="col-lg-12 mb-4 mb-sm-5 py-2">
+                <div class="card py-2 card-style1 border-0">
+                    <div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7">
+                        <div class="row align-items-center py-2">
+                            <div class="col-lg-6 mb-4 mb-lg-0">
+                                <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="...">
+                            </div>
+                            <div class="col-lg-6 px-xl-10">
+                                <div class="d-lg-inline-block py-1-9 px-1-9 px-sm-6 mb-1-9">
+                                    <h3 class=" h2 mb-0 p-2">{{asistente.get_full_name}}</h3>
+                                    
+                                </div>
+                                
+                                <ul class="list-unstyled mb-1-9">
+                                    <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Nombres: </span> {{asistente.nombre}}</li>
+                                    <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Apellidos: </span>{{asistente.apellido}}</li>
+                                    <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Sexo: </span>{{asistente.sexo}}</li>
+                                    <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Cedula de Identidad:</span>{{asistente.cid}}</li>
+                                    <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600"><span>Doctor al que Asiste:</span><a href="{% url 'doctor_detail' asistente.doctor_ref.id_doctor %}">{{asistente.doctor_ref.get_full_name}}</a></li>
+                                    <li class="mb-2 mb-xl-3 display-28"><span class="display-26 text-secondary me-2 font-weight-600">Email:</span>{{asistente.email}}</li>
+                                    <li class="display-28"><span class="display-26 text-secondary me-2 font-weight-600">Número de telefono:</span>{{asistente.telefono}}</li>
+                                    <li class="display-28"><span class="display-26 text-secondary me-2 font-weight-600">Dirección:</span>{{asistente.dirección}}</li>
+                                </ul>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 mb-4 mb-sm-5">
+                <div>
+                    <span class="section-title text-primary mb-3 mb-sm-4">Información Adicional</span>
+                    <p>{{asistente.notas|default:'Sin información adicional definida.'}}</p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+{% endblock %}

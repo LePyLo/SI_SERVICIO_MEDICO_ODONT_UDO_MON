@@ -62,12 +62,6 @@ class User(AbstractUser, PermissionsMixin):
         # Si no se encuentra el rol, devuelve una cadena vacía
         return ""
 
-
-
-
-
-
-
 class Paciente(models.Model):
     SEXO=(
         ('mujer', 'Mujer'),
@@ -112,7 +106,7 @@ class Doctor(models.Model):
     cid = models.CharField(max_length=15, blank=True)
     telefono = models.CharField(max_length=12, blank=True, null=True)
     especialidad = models.CharField(max_length=15, choices=ESPECIALIDAD)
-    user_ref = models.ForeignKey(User, on_delete=models.RESTRICT)
+    user_ref = models.ForeignKey(User, on_delete=models.RESTRICT, null=True, blank=True)
     direccion =  models.TextField(blank=True, null=True)
     notas = models.TextField(max_length=250, blank=True, null=True)
     email = models.CharField(max_length=255, validators=[EmailValidator()], blank=True)
@@ -135,7 +129,7 @@ class Asistente(models.Model):
     sexo = models.CharField(max_length=10, choices=SEXO)
     cid = models.CharField(max_length=15, blank=True)
     telefono = models.CharField(max_length=12, blank=True, null=True)
-    user_ref = models.ForeignKey(User, on_delete=models.RESTRICT)
+    user_ref = models.ForeignKey(User, on_delete=models.RESTRICT, null=True, blank=True)
     doctor_ref = models.ForeignKey(Doctor, on_delete=models.RESTRICT, null=True)
     notas = models.TextField(max_length=250, blank=True, null=True)
     email = models.CharField(max_length=255, validators=[EmailValidator()], blank=True)

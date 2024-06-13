@@ -52,28 +52,8 @@
       <!-- End Tables Nav -->
 
 
+      
       <li class="nav-item">
-        <a class="nav-link collapsed aside-btn" data-bs-target="#productos-aside" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-universal-access"></i> <span>Asistente Medico</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="productos-aside" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>Listar Asistentes</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>Registrar Nuevo Asistente Medico</span>
-            </a>
-          </li>
-          
-        </ul>
-      </li> 
-
-
-
-       <li class="nav-item">
         <a class="nav-link collapsed aside-btn" data-bs-target="#clientes-aside" data-bs-toggle="collapse" href="#">
           <i class="bi bi-briefcase-fill"></i><span>Doctor</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
@@ -91,6 +71,28 @@
           
         </ul>
       </li> 
+
+      <li class="nav-item">
+        <a class="nav-link collapsed aside-btn" data-bs-target="#productos-aside" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-universal-access"></i> <span>Asistente Medico</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="productos-aside" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{% url 'asistentes' %}">
+              <i class="bi bi-circle"></i><span>Listar Asistentes</span>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'asistente_insertar' %}">
+              <i class="bi bi-circle"></i><span>Registrar Nuevo Asistente Medico</span>
+            </a>
+          </li>
+          
+        </ul>
+      </li> 
+
+
+
       <!-- End Components Nav -->
 
       <li class="nav-item">
@@ -119,7 +121,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed aside-btn" href="{% url 'admin:index' %}">
           <i class="bi bi-person"></i>
-          <span>ADMINISTRACIÓN <span class="badge bg-secondary">WIP</span></span>
+          <span>ADMINISTRACIÓN </span>
         </a>
       </li><!-- End Profile Page Nav -->
       {% endif %}

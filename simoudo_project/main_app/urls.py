@@ -24,5 +24,10 @@ urlpatterns = [
     path("doctor/insertar", views.doctor_insertar, name="doctor_insertar"),
     path("doctor/modificar/<int:pk>", views.doctor_modificar, name="doctor_modificar"),
     path("doctor/eliminar/<int:pk>", views.doctor_eliminar, name="doctor_eliminar"),
+    path("asistentes_medicos/", views.asistente_obtener_todos, name="asistentes"),
+    path("asistente_medico/<int:pk>", views.asistente_detail, name="asistente_detail"),
+    path("asistente_medico/insertar", views.asistente_insertar, name="asistente_insertar"),
+    path("asistente_medico/modificar/<int:pk>", views.asistente_modificar, name="asistente_modificar"),
+    path("asistente_medico/eliminar/<int:pk>", views.asistente_eliminar, name="asistente_eliminar"),
     
 ]

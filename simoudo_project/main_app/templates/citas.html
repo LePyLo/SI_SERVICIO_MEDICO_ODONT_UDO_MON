@@ -76,7 +76,13 @@
                 <td class="text-center py-0 align-middle">
                     <a href="{% url 'doctor_detail' cita.doctor.id_doctor %}">{{ cita.doctor.get_full_name|default:"N/A" }}</a>
                 </td>
-                <td class="text-center py-0 align-middle">{{ cita.asistente.get_full_name |default:"N/A" }}</td>
+                <td class="text-center py-0 align-middle">
+                    {% if cita.asistente.id_asistente %}
+                        <a href="{% url 'asistente_detail' cita.asistente.id_asistente %}">{{ cita.asistente.get_full_name }}</a>
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
                 <td class="text-center py-0 align-middle">{{ cita.fecha_creacion|default:"N/A" }}</td>
                 <td class="text-center py-0 align-middle">{{ cita.fecha_propuesta|default:"N/A" }}</td>
                 <td class="text-center py-0 align-middle">
