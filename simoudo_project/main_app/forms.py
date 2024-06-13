@@ -235,3 +235,28 @@ class AsistenteForm(forms.ModelForm):
         fields = ['nombre','apellido','sexo','cid_tipo','cid_numero','doctor_ref','telefono','email','direccion','user_ref', 'notas']  # You can still use this if you want to include all fields
         exclude = ['cid']
         use_crispy_forms = True
+
+class MedicamentoForm(forms.ModelForm):
+    class Meta:
+        model = Medicamento
+        fields = ['nombre', 'descripcion', 'cant_disponible', 'image_url', 'notas']
+
+    # Personalizar etiquetas de campos
+    nombre = forms.CharField(label='Nombre del Medicamento', max_length=250)
+    descripcion = forms.CharField(label='Descripción', max_length=250, widget=forms.Textarea)
+    cant_disponible = forms.IntegerField(label='Cantidad Disponible', min_value=1)
+    image_url = forms.CharField(label='URL de la Imagen', max_length=250, required=False)
+    notas = forms.CharField(label='Notas', max_length=250, widget=forms.Textarea, required=False)
+
+    # Validaciones de campos
+    def clean_nombre(self):
+        nombre = self.cleaned_data['nombre']
+        if not nombre.strip():
+            raise forms.ValidationError('El nombre del medicamento no puede estar vacío.')
+        return nombre.strip()
+
+    def clean_cant_disponible(self):
+        cant_disponible = self.cleaned_data['cant_disponible']
+        if cant_disponible < 1:
+            raise forms.ValidationError('La cantidad disponible debe ser un número positivo mayor que 0.')
+        return cant_disponible

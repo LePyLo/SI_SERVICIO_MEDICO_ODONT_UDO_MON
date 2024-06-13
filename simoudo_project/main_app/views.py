@@ -9,7 +9,7 @@ from django.db.models import Count
 #Creo que dejare estas importanciones de esta forma de momento, pero bien pude importar todo
 #pero para reducir la posibilidad de errores se importó asi.
 from .models import Doctor, Paciente, Medicamento, Asistente, Cita, User, Recipe
-from .forms import CitaForm, RecipeForm, PacienteForm, DoctorForm, AsistenteForm
+from .forms import CitaForm, RecipeForm, PacienteForm, DoctorForm, AsistenteForm, MedicamentoForm
 
 ######################################################################################
 ######################################################################################
@@ -284,6 +284,31 @@ def asistente_modificar(request,pk):
 def asistente_eliminar(request,pk):
     pass
 
+######################################################################################
+######################################################################################
+# CONTROLADORES RELACIONADOS CON MEDICAMENTOS.
+@login_required
+def medicamento_obtener_todos(request):
+    medicamentos = Medicamento.objects.all()
+    context = {'medicamentos':medicamentos, 'titulo_web':'Listado de Medicamentos Registrados.'}
+    return render(request, 'medicamentos.html', context)
+
+
+@login_required
+def medicamento_detail(request,pk):
+    pass
+
+@login_required
+def medicamento_insertar(request):
+    pass
+
+@login_required
+def medicamento_modificar(request,pk):
+    pass
+
+@login_required
+def medicamento_eliminar(request,pk):
+    pass
 
 ######################################################################################
 ######################################################################################

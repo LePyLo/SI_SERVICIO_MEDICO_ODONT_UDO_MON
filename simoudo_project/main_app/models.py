@@ -147,6 +147,8 @@ class Medicamento(models.Model):
     cant_disponible = models.PositiveIntegerField()
     image_url = models.CharField(max_length=250, null=True, blank=True)
     notas = models.TextField(max_length=250, blank=True, null=True)
+    creado_en = models.DateField(auto_now_add=True)
+
     def __str__(self):
         return(f"{self.nombre}")
 

@@ -29,5 +29,10 @@ urlpatterns = [
     path("asistente_medico/insertar", views.asistente_insertar, name="asistente_insertar"),
     path("asistente_medico/modificar/<int:pk>", views.asistente_modificar, name="asistente_modificar"),
     path("asistente_medico/eliminar/<int:pk>", views.asistente_eliminar, name="asistente_eliminar"),
+    path("medicamentos/", views.medicamento_obtener_todos, name="medicamentos"),
+    path("medicamento/<int:pk>", views.medicamento_detail, name="medicamento_detail"),
+    path("medicamento/insertar", views.medicamento_insertar, name="medicamento_insertar"),
+    path("medicamento/modificar/<int:pk>", views.medicamento_modificar, name="medicamento_modificar"),
+    path("medicamento/eliminar/<int:pk>", views.medicamento_eliminar, name="medicamento_eliminar"),
     
 ]
