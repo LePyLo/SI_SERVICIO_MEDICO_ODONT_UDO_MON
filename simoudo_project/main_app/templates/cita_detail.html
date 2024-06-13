@@ -53,15 +53,16 @@ details {
             <br>
             <span>Fecha Propuesta: {{cita.fecha_propuesta.date}}</span>
         </div>
-        <div><button style="border:none; margin:0; padding:0;" ><a style="padding-top: 0;padding-bottom: 0; margin: 0; font-size: 12px;" class="btn btn-info btn-sm"  href="{% url 'cita_modificar' cita.id_cita %}"><i class="bi bi-pen"></i> Editar esta cita medica</a></button></div>
+        <div class="d-lg-inline-block"><button style="border:none; margin:0; padding:0;" ><a style="padding-top: 0;padding-bottom: 0; margin: 0; font-size: 12px;" class="btn btn-info btn-sm"  href="{% url 'cita_modificar' cita.id_cita %}"><i class="bi bi-pen"></i> Editar esta cita medica</a></button></div>
+        <div class="d-lg-inline-block"><button style="border:none; margin:0; padding:0;" ><a style="padding-top: 0;padding-bottom: 0; margin: 0; font-size: 12px;" class="btn btn-info btn-sm"  href="{% url 'recipes' cita.id_cita %}"><i class="bi bi-pen"></i> Editar Medicamentos recetados durante esta cita</a></button></div>
     </div>
 
     <details class="my-2">
         <summary>Diagnostico y Tratamiento</summary>
         <div class="diagnostico border border-info rounded my-2 p-2 bg-info bg-opacity-10">
-            <h2 class="text-center">DIAGNOSTICO</h2>
+            <h2 class="text-center h4">DIAGNOSTICO</h2>
             <p>{{cita.diagnostico}}</p>
-            <h2 class="text-center">TRATAMIENTO</h2>
+            <h2 class="text-center h4">TRATAMIENTO</h2>
             <P>{{cita.tratamiento}}</P>
         </div>
     </details>
@@ -69,7 +70,7 @@ details {
     <details class="my-2">
         <summary>Recipe Medico</summary>
         <div class="recipe border border-info rounded p-2 my-2 bg-info bg-opacity-10">
-            <h2 class="text-center">RECIPE MEDICO</h2>
+            <h2 class="text-center h4">RECIPE MEDICO</h2>
     
                 <div style="overflow-x: auto; white-space: nowrap;">
                 <table class="table table-striped table-bordered table-sm p-0">
