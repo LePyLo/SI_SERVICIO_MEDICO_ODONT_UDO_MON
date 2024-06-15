@@ -2,7 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+simoudo_project/staticfiles/
 # C extensions
 *.so
 .VSCodeCounter/
