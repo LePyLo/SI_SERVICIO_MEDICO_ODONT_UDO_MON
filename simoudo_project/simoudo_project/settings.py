@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-o=*c83*!%ln1542_r_6*$hlis%sv&7_14hc%-ahwr^#*(732y%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['prueba-subida-sis-auditoria.onrender.com']
 
 
 # Application definition
