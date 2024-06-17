@@ -3,6 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 simoudo_project/staticfiles/
+simoudo_project/main_app/migrations/
+
 # C extensions
 *.so
 .VSCodeCounter/
