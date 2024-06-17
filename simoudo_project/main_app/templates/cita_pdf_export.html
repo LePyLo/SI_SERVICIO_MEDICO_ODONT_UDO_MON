@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle - {{ titulo }}</title>
+</head>
+<body>
+    <style>
+        /* Ajustes generales */
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .contenedor {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .informacion {
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            border: 1px black solid;
+        }
+
+        /* Estilos para cada campo de información (personalizar según la información a mostrar) */
+        .campo-titulo {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .campo-valor {
+            margin-bottom: 1px;
+        }
+
+    </style>
+
+    <div class="contenedor">
+        <div>
+            <div class="product_imagen">
+                <img style="width: 80px; height: 80px;" src="http://127.0.0.1:7000/static/images/logo_redondo_fondoazul.png" >  
+            </div>
+            
+            <h1>CITA MEDICA</h1>
+        </div>
+        
+        <h2>TITULO: {{ titulo }}</h2>
+
+        <div class="informacion">
+            <p>Fecha propuesta de la cita: {{fecha_propuesta}}</p>
+            <p>Doctor:  {{doctor}}. <span>Especialidad: {{especialidad}}</span>   </p>
+            <p>Paciente: {{paciente}}</p>
+            <p>Diagnostico: {{diagnostico}}</p>
+            <p>Tratamiento: {{tratamiento}}</p>
+
+        </div>
+        <table width="100%" border="1" cellspacing="0" cellpadding="2">
+                <thead>
+                    <tr style="padding-top: 0;padding-bottom: 0; margin: 0; font-size: 10px;">
+                        <th class="text-center py-0">Medicamento</th>
+                        <th class="text-center py-0">Cantidad</th>
+                        <th class="text-center py-0">Nota</th>
+                    </tr>
+                    
+                </thead>
+                <tbody>
+                    {% for recipe_element in recipe %}
+                    
+                    <tr>
+                        <td style="">{{ recipe_element.medicamento }}</td>
+                        <td >{{ recipe_element.cantidad_deseada|default:"N/A" }}</td>
+                        <td >{{ recipe_element.nota|default:"N/A" }}</td>
+
+                    </tr>
+                    {% empty %}
+                    <p>Sin Recipe Medico recetado en esta cita.</p>
+                    {% endfor %}
+                </tbody>
+          </table>
+    </div>
+</body>
+</html>

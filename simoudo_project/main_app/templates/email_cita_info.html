@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Inline CSS */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .email-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border: 1px solid #dddddd;
+            border-radius: 5px;
+        }
+
+        .header {
+            background-color: #007bff;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .image {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .footer {
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>Recordatorio para Cita Medica en el Centro Medico Odontologico UDO Monagas.</h1>
+        </div>
+        <div class="content">
+            <p>Hola {{ receiver_name }},</p>
+            <p>Te escribimos desde el Centro Medico Odontologico de la UDO Monagas para brindarte información sobre tu cita prevista para el {{cita_propuesta}}.</p>
+            <p>Emitido el: {{cita_emision}}.</p>
+            <p>Fecha propuesta: {{cita_propuesta}}</p>
+            <p> Doctor(a): {{cita_doctor}} ({{cita_doctor_tlf}})</p>
+            <p>Area: {{cita_area}}</p>
+            <br>
+            <p> Tomar las medidas necesarias, te estaremos esperando.</p>
+            <p>ATT. Personal del Centro Medico Odontologico de la UDO Monagas.</p>
+        </div>
+        <div class="footer">
+            &copy; {{ fecha_email }} - SIMO. Cuidando tu salud.
+        </div>
+    </div>
+</body>
+</html>

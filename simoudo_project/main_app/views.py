@@ -1,10 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
 from django.db.models import Count
+from datetime import date
+from django.core.mail import send_mail, EmailMultiAlternatives
+from django.template.loader import render_to_string, get_template
+from django.utils.html import strip_tags
+from django.conf import settings
+from io import BytesIO
+from xhtml2pdf import pisa 
 
 #Creo que dejare estas importanciones de esta forma de momento, pero bien pude importar todo
 #pero para reducir la posibilidad de errores se importó asi.
@@ -67,6 +74,20 @@ def cita_eliminar(request):
 def cita_detail(request, pk):
     cita = get_object_or_404(Cita, pk=pk)
     cita_recipe = Recipe.objects.filter(cita=cita)
+    if request.method == 'POST':
+        
+        
+        context = {"titulo":cita.titulo, 
+                   "paciente":cita.paciente.get_full_name(), 
+                   "doctor":cita.doctor.get_full_name(),
+                   "diagnostico":cita.diagnostico,
+                   "tratamiento":cita.tratamiento,
+                   "fecha_propuesta":cita.fecha_propuesta,
+                   "recipe":cita_recipe,
+                   "especialidad":cita.doctor.especialidad.capitalize(),
+                   }
+        return generar_pdf(request, context)
+
     context = {'cita':cita,'recipe_list':cita_recipe, 'titulo_web':'Cita en detalle'}
     return render(request, 'cita_detail.html',context)
 
@@ -122,6 +143,65 @@ def recipe_modificar(request,pk):
 
     context = {'form': form, 'recipe': recipe, 'titulomain':'Modificar Elemento Cita Medica.'}
     return render(request, 'recipe_modificar.html', context)
+    
+
+@login_required
+def cita_enviar_email(request, cita_pk):
+    cita = get_object_or_404(Cita, pk=cita_pk)
+    context = {
+    "receiver_name": cita.paciente.get_full_name(),
+    "cita_propuesta":cita.fecha_propuesta,
+    "cita_doctor": cita.doctor.get_full_name(),
+    "cita_area":cita.doctor.especialidad.capitalize(),
+    "cita_doctor_tlf":cita.doctor.telefono,
+    "cita_emision":cita.fecha_creacion,
+    "fecha_email":date.today(),
+    }
+    receiver_mail = str(cita.paciente.email).strip()
+
+    html_body =  render_to_string(
+        "email_cita_info.html",
+        context
+    )
+
+    sended_mail = send_mail(subject="Recordatorio para Cita Medica en el Centro Medico odontologico UDO Monagas.",
+                            message=".", 
+                            html_message=html_body,
+                            from_email=settings.EMAIL_HOST_USER,
+                            recipient_list=[receiver_mail],
+                            fail_silently=False,
+                            )
+
+
+    if (sended_mail):
+        paciente_name = cita.paciente.get_full_name()
+        messages.success(request, "Correo enviado exitosamente al paciente "+paciente_name)
+    else:
+        messages.error(request, "Ocurrio un error inesperado al tratar de enviar un correo al paciente "+paciente_name)
+
+    return HttpResponseRedirect(reverse('citas')) 
+
+
+
+
+@login_required
+def generar_pdf(request, context):
+
+    # Renderizar la plantilla HTML con los datos
+    template = get_template('cita_pdf_export.html')
+
+    html = template.render(context)
+
+    # Configuración de xhtml2pdf
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="{context["titulo"]}_{context["paciente"]}_{date.today()}.pdf"'
+
+    result = pisa.CreatePDF(html, dest=response)
+
+    if result.err:
+        return HttpResponse('Error: %s' % result.err)
+    else:
+        return response
     
 
 ######################################################################################

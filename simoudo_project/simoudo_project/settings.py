@@ -13,8 +13,14 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 from django.contrib import messages
+import environ
+
+import dj_database_url
 
 import pymysql
+
+env = environ.Env()
+environ.Env.read_env()
 
 pymysql.install_as_MySQLdb()
 
@@ -26,7 +32,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-o=*c83*!%ln1542_r_6*$hlis%sv&7_14hc%-ahwr^#*(732y%'
+SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -92,11 +98,11 @@ WSGI_APPLICATION = 'simoudo_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'labdb',
-        'USER':'labadmin',
-        'PASSWORD':'odontologico24',
-        'HOST':'localhost',
-        'PORT':'3306',
+        'NAME': env("DB_NAME"),
+        'USER':env("DB_USER"),
+        'PASSWORD':env("DB_PASSWORD"),
+        'HOST':env("DB_HOST"),
+        'PORT':env("DB_PORT"),
         'OPTIONS':{
             'sql_mode':'traditional'
         }
@@ -162,12 +168,23 @@ MESSAGE_TAGS = {
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static/')]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 if not DEBUG:    # Tell Django to copy static assets into a path called `staticfiles` (this is specific to Render)
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     # Enable the WhiteNoise storage backend, which compresses static files to reduce disk use
     # and renames the files with unique names for each version to support long-term caching
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
+
+# CONFIGURACION DE EMAIL
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'   
+EMAIL_PORT = 587       # gmail smtp server port
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")  # Use your email account
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD") # For gmail use app password
+EMAIL_USE_TLS = True     # for SSL communication use EMAIL_USE_SSL
+EMAUL_USE_SSL = False
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

@@ -55,6 +55,10 @@ details {
         </div>
         <div class="d-lg-inline-block"><button style="border:none; margin:0; padding:0;" ><a style="padding-top: 0;padding-bottom: 0; margin: 0; font-size: 12px;" class="btn btn-info btn-sm"  href="{% url 'cita_modificar' cita.id_cita %}"><i class="bi bi-pen"></i> Editar esta cita medica</a></button></div>
         <div class="d-lg-inline-block"><button style="border:none; margin:0; padding:0;" ><a style="padding-top: 0;padding-bottom: 0; margin: 0; font-size: 12px;" class="btn btn-info btn-sm"  href="{% url 'recipes' cita.id_cita %}"><i class="bi bi-pen"></i> Editar Medicamentos recetados durante esta cita</a></button></div>
+        <form class="d-lg-inline-block m-2" method="post">
+            {% csrf_token %}
+            <button style="border:none; margin:0; padding:0;" class="btn btn-sm btn-warning" type="submit">Generar PDF</button>
+        </form>
     </div>
 
     <details class="my-2">
