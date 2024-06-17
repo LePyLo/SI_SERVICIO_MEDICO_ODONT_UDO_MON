@@ -266,7 +266,7 @@ def paciente_eliminar(request,pk):
 def doctor_obtener_todos(request):
     doctores = Doctor.objects.all().annotate(cita_count=Count('cita'))
     context = {'doctores':doctores, 'titulo_web':'Listado de Doctores Registrados.'}
-    return render(request, 'Doctores.html', context)
+    return render(request, 'doctores.html', context)
 
 
 @login_required

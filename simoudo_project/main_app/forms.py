@@ -231,7 +231,7 @@ class AsistenteForm(forms.ModelForm):
             return instance
 
     class Meta:
-        model = Doctor
+        model = Asistente
         fields = ['nombre','apellido','sexo','cid_tipo','cid_numero','doctor_ref','telefono','email','direccion','user_ref', 'notas']  # You can still use this if you want to include all fields
         exclude = ['cid']
         use_crispy_forms = True
