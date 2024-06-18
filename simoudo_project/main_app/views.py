@@ -174,10 +174,9 @@ def cita_enviar_email(request, cita_pk):
 
 
     if (sended_mail):
-        paciente_name = cita.paciente.get_full_name()
-        messages.success(request, "Correo enviado exitosamente al paciente "+paciente_name)
+        messages.success(request, "Correo enviado exitosamente al paciente.")
     else:
-        messages.error(request, "Ocurrio un error inesperado al tratar de enviar un correo al paciente "+paciente_name)
+        messages.error(request, "Ocurrio un error inesperado al tratar de enviar un correo al paciente.")
 
     return HttpResponseRedirect(reverse('citas')) 
 
